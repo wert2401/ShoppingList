@@ -1,0 +1,9 @@
+﻿<div @onclick="OnClickCallback">
+    <img src="icons/addPosition.svg" alt="My Happy SVG" />
+    <h3>Add new position</h3>
+</div>
+
+@code {
+    [Parameter]
+    public EventCallback OnClickCallback { get; set; }
+}

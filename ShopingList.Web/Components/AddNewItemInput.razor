@@ -1,0 +1,17 @@
+﻿<div>
+    <img src="icons/checkboxEmpty.svg" alt="Unchecked" />
+    <input type="text" @bind="@Input"/>
+    <button @onclick="() => Accept(Input)"><img class="accept" src="icons/accept.svg" alt="Accept" /></button>
+    <button @onclick="Decline"><img class="decline" src="icons/decline.svg" alt="Decline" /></button>
+</div>
+
+@code {
+    [Parameter]
+    public string Input { get; set; } = "";
+
+    [Parameter]
+    public EventCallback Decline { get; set; }
+
+    [Parameter]
+    public Func<string, Task> Accept { get; set; }
+}

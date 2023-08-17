@@ -1,0 +1,32 @@
+﻿div {
+    display: flex;
+    width: min-content;
+    height: 38px;
+    padding: 7px 14px 7px 8px;
+    align-items: flex-start;
+    gap: 9px;
+    flex-shrink: 0;
+    border-radius: 47px;
+    cursor: pointer;
+}
+
+img {
+    width: 24px;
+    height: 24px;
+}
+
+p {
+    color: #FFAF51;
+    font-size: 15px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.checked {
+    background: #483D3F;
+}
+
+.unchecked {
+    background: #EFEFEF;
+}

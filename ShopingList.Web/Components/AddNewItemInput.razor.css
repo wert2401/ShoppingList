@@ -1,0 +1,43 @@
+﻿div {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 9px;
+    flex-shrink: 0;
+    color: #000;
+    border-radius: 47px;
+    background: #EFEFEF;
+    padding: 7px 14px 7px 8px;
+}
+
+input {
+    width: 100%;
+    font-family: Jost;
+    border: none;
+    background: none;
+    font-size: 15px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    letter-spacing: 0.26px;
+    border-bottom: 2px solid #F49D37;
+}
+
+    input:focus {
+        outline: none;
+    }
+
+img {
+    width: 24px;
+    height: 24px;
+}
+
+.accept {
+    width: 13px;
+    height: 16px;
+}
+
+.decline {
+    width: 15px;
+    height: 15px;
+}

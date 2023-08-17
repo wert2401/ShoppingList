@@ -1,0 +1,14 @@
+﻿.list-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 9px;
+    flex-shrink: 0;
+    margin-bottom: 10px;
+}
+
+.list {
+    display: flex;
+    flex-direction: column;
+    row-gap: 5px;
+}

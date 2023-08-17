@@ -1,0 +1,65 @@
+﻿@if (isEditMode)
+{
+    <AddNewItemInput Input="@Item.Name" Decline="OnDecline" Accept="OnAccept" />
+}
+else
+{
+    <div class="@(Item.IsBought ? "checked" : "unchecked")" @onpointerdown="OnPointerDown" @onpointerup="OnPointerUp">
+        <img src="@(Item.IsBought ? "icons/checkboxChecked.svg" : "icons/checkboxEmpty.svg")" alt="Checkbox" />
+        <p>@Item.Name</p>
+    </div>
+}
+
+@code {
+    [Parameter]
+    public ShopListItem Item { get; set; }
+
+    [Parameter]
+    public EventCallback OnCheckCallback { get; set; }
+
+    [Parameter]
+    public EventCallback OnRemoveCallback { get; set; }
+
+    [Parameter]
+    public Func<ShopListItem, string, Task> OnUpdateItem { get; set; }
+
+    private bool isEditMode { get; set; } = false;
+
+    DateTime pointerDown;
+    DateTime pointerUp;
+
+    private void OnPointerDown()
+    {
+        pointerDown = DateTime.Now;
+    }
+
+    private async Task OnDecline()
+    {
+        isEditMode = false; 
+        await OnRemoveCallback.InvokeAsync();
+        StateHasChanged();
+    }
+
+    private async Task OnAccept(string input)
+    {
+        isEditMode = false; 
+        await OnUpdateItem(Item, input); 
+        StateHasChanged();
+    }
+
+    private async Task OnPointerUp()
+    {
+        pointerUp = DateTime.Now;
+
+        var ms = (pointerUp - pointerDown).TotalMilliseconds;
+
+        if (ms < 400)
+        {
+            await OnCheckCallback.InvokeAsync();
+        }
+        else
+        {
+            isEditMode = true;
+        }
+    }
+}
