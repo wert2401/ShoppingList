@@ -25,7 +25,7 @@
       "ShoppingList.Application.dll": "sha256-JohTCJ8vIicM+c3yYdqE0COyz\/IO1HSK2vFhO1RDzcY=",
       "ShoppingList.Domain.dll": "sha256-CZNiY1eCQ0FEBXcmydij5Q16hhGuTMy24fH27T6OccY=",
       "ShoppingList.Infrastructure.dll": "sha256-oCl3R9zheyHmAsRe5bGK67E\/NCO8EyOk1Cv5SFXTBw8=",
-      "ShoppingList.Web.dll": "sha256-jJBfUiMf5hO2ht8dIhVw1wH+5Zr+4wx\/e3Qz8ZrPw9w=",
+      "ShoppingList.Web.dll": "sha256-DsgsYD50ZmCCnqQ7CyI1eLaVZcar3sB8+gMc75RE0+k=",
       "System.Collections.Concurrent.dll": "sha256-2\/3x7gGXXY\/vKSePVvuXLOiwCUFlU3bPFgKLI5peWvI=",
       "System.Collections.dll": "sha256-WeNO5ik5CGUXlhoUIUUHUnbtXYxHVcccxRwzzdsFrko=",
       "System.ComponentModel.Annotations.dll": "sha256-24+iWL59++aheOucPsUPNJ1wcQH8tBO90BQSgDCVdE0=",
@@ -48,7 +48,7 @@
     "libraryInitializers": null,
     "pdb": null,
     "runtime": {
-      "dotnet.7.0.10.spohs8by9g.js": "sha256-tUkVS4U0Vxxtapw398+Wa99LWNq9tlbfXS5gC7\/8Yh4=",
+      "dotnet.7.0.10.k8bwvgmvct.js": "sha256-tUkVS4U0Vxxtapw398+Wa99LWNq9tlbfXS5gC7\/8Yh4=",
       "dotnet.timezones.blat": "sha256-pf9chcB37Cf13KuuvScsozomnAUanMeCfvDr9Wqofh8=",
       "dotnet.wasm": "sha256-yk5zQAeLYW5MCl\/Exti9CQBFmAyXowQB4zuRMeoEtjg=",
       "icudt_CJK.dat": "sha256-SZLtQnRc0JkwqHab0VUVP7T3uBPSeYzxzDnpxPpUnHk=",
