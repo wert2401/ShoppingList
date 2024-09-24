@@ -1,7 +1,7 @@
 {
   "mainAssemblyName": "ShoppingList.Web",
   "resources": {
-    "hash": "sha256-6wEiPOThhcYyAr6k4KLHssHmZPTpcBTNknmBpWWHamM=",
+    "hash": "sha256-VT7Xm8PG7/uLebjrvtUWaUV4YkGZwudLnnZ2jUSyet8=",
     "jsModuleNative": {
       "dotnet.native.8.0.8.ng5s7by1f2.js": "sha256-MwXfXmu0y5ISO3E/Zb8OuYsXEEH5WIB5nhy3hNxOsH4="
     },
@@ -44,10 +44,10 @@
       "Microsoft.JSInterop.wasm": "sha256-MoFkFdF7xEFna+Yy7T3i2MmSnM2141P7ac2XHx6oulo=",
       "Microsoft.JSInterop.WebAssembly.wasm": "sha256-PkmdHg/xWfpt4+ZMmJzT4FOLHce7IuNRBtbJQeQAkHs=",
       "netstandard.wasm": "sha256-TCKO1CpMad6J7iN06J2jqWwbTbTHBIx4ftSE1C4eUt4=",
-      "ShoppingList.Application.wasm": "sha256-hKIItnfkPWAuCf8fCMsWKintXdrZdZFFIRdIcB5Qu8o=",
-      "ShoppingList.Domain.wasm": "sha256-KOWbxmmBU5Wo5pGR/XMEvkAyrZ8s05boxfgdxsCIiWY=",
-      "ShoppingList.Infrastructure.wasm": "sha256-SQURHoPMynkpjNQApLoKut6TorVaGW9wmed/sEHr7SY=",
-      "ShoppingList.Web.wasm": "sha256-nsKmxeit91FCF3G0GyjdnD0wyE2DZ+jcwon4wguVH7M=",
+      "ShoppingList.Application.wasm": "sha256-CzeNYpyx+u8I6+lPmHK6PgtA/D3D9LvNftFv6MzrzFU=",
+      "ShoppingList.Domain.wasm": "sha256-yLp+Pd+i6tcTgKncL7eCfysuO952wG6U9OylrrcZp+A=",
+      "ShoppingList.Infrastructure.wasm": "sha256-KJ6TzBGkW+JcT0yQD0VOzR0ZdsXN4Q/P411z9u85qHE=",
+      "ShoppingList.Web.wasm": "sha256-fO7cHUFAiviyh3bd5QtCO1RWkobV+oBHNeBs2T5Q3R0=",
       "SQLitePCLRaw.batteries_v2.wasm": "sha256-AymqXfJmredfnqn6PxQs3nqqNoMXiBDEqaT3b0605F8=",
       "SQLitePCLRaw.core.wasm": "sha256-5ncp/PNVntosOHmUwpvRVJZvvreYP08nlkqD9XgBkdA=",
       "SQLitePCLRaw.provider.e_sqlite3.wasm": "sha256-3TKRNpWG681LxI/l31HI8LuIjsCjG6XJ9dIEXu3m1zY=",
