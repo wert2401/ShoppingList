@@ -1,4 +1,10 @@
-﻿@if (isEditMode)
+﻿@using ShoppingList.Application.ShoppingListItems.Commands
+@using ShoppingList.Application.ShoppingListItems.Queries
+@using ShoppingList.Domain.ShoppingListItems;
+
+@inject ISender sender;
+
+@if (isEditMode)
 {
     <AddNewItemInput Input="@Item.Name" Decline="OnDecline" Accept="OnAccept" />
 }
@@ -12,21 +18,28 @@ else
 
 @code {
     [Parameter]
-    public ShopListItem Item { get; set; }
+    public required ShoppingListItem Item { get; set; }
 
     [Parameter]
-    public EventCallback OnCheckCallback { get; set; }
+    public EventCallback OnRemoved { get; set; }
 
     [Parameter]
-    public EventCallback OnRemoveCallback { get; set; }
-
-    [Parameter]
-    public Func<ShopListItem, string, Task> OnUpdateItem { get; set; }
+    public EventCallback OnChecked { get; set; }
 
     private bool isEditMode { get; set; } = false;
 
     DateTime pointerDown;
     DateTime pointerUp;
+
+    private async Task RefreshItemAsync()
+    {
+        GetShoppingListItemQuery getShoppingListItemQuery = new GetShoppingListItemQuery(Item.Id);
+        var itemResponse = await sender.Send(getShoppingListItemQuery);
+
+        itemResponse.Then(x => Item = x);
+
+        StateHasChanged();
+    }
 
     private void OnPointerDown()
     {
@@ -35,15 +48,25 @@ else
 
     private async Task OnDecline()
     {
-        isEditMode = false; 
-        await OnRemoveCallback.InvokeAsync();
+        isEditMode = false;
+
+        RemoveShoppingListItemCommand removeShoppingListItemCommand = new RemoveShoppingListItemCommand(Item.Id);
+        await sender.Send(removeShoppingListItemCommand);
+
+        await OnRemoved.InvokeAsync();
+
         StateHasChanged();
     }
 
     private async Task OnAccept(string input)
     {
-        isEditMode = false; 
-        await OnUpdateItem(Item, input); 
+        isEditMode = false;
+
+        SetShoppingListItemNameCommand setShoppingListItemNameCommand = new SetShoppingListItemNameCommand(Item.Id, input);
+        await sender.Send(setShoppingListItemNameCommand);
+
+        await RefreshItemAsync();
+
         StateHasChanged();
     }
 
@@ -55,7 +78,12 @@ else
 
         if (ms < 400)
         {
-            await OnCheckCallback.InvokeAsync();
+            CheckShoppingListItemCommand markShoppingListItemCommand = new CheckShoppingListItemCommand(Item.Id);
+            await sender.Send(markShoppingListItemCommand);
+
+            await RefreshItemAsync();
+
+            await OnChecked.InvokeAsync();
         }
         else
         {
