@@ -1,25 +1,33 @@
 ﻿@page "/"
-@inject Application.Common.Interfaces.IRepository<Domain.ShopList, string> shopingListRepository
+@using ShoppingList.Application.ShoppingListItems.Commands
+@using ShoppingList.Application.ShoppingListItems.Queries
+@using ShoppingList.Application.ShoppingLists.Commands
+@using ShoppingList.Application.ShoppingLists.Queries
+@using ShoppingList.Domain.ShoppingListItems
+@using ShoppingList.Domain.ShoppingLists
+@using ShoppingList.Infrastructure.Persistence
+
+@inject ISender sender;
 
 <div class="list-header">
     <AddNewItemBtn OnClickCallback="AddNewItemBtnClick" />
-    @if (shoppingList != null)
+    @if (_currentShoppingList != null)
     {
-        <Status CheckedCount="@shoppingList.Items.Where(x => x.IsBought).Count()" Count="@shoppingList.Items.Count" />
+        <Status CheckedCount="@_shoppingListItems.Where(x => x.IsBought).Count()" Count="@_shoppingListItems.Count()" />
     }
 </div>
 
 <div class="list">
-    @if (IsAddingNewItem)
+    @if (_currentShoppingList != null)
     {
-        <AddNewItemInput Decline="HideAddNewItemBtn" Accept="async (input) => await AddNewItem(input)"/>
-    }
-
-    @if (shoppingList != null)
-    {
-        @foreach (var item in shoppingList.Items.OrderBy(x => x.IsBought).ThenBy(x => x.Name))
+        @if (IsAddingNewItem)
         {
-            <ListItem Item="@item" OnCheckCallback="() => Check(item)" OnRemoveCallback="async () => await RemoveItem(item)" OnUpdateItem="async (i, name) => await OnUpdateItem(i, name)"/>
+            <AddNewItemInput Decline="HideAddNewItemBtn" Accept="async (input) => await AddNewItem(_currentShoppingList.Id, input)" />
+        }
+
+        @foreach (var item in _shoppingListItems.OrderBy(x => x.IsBought).ThenBy(x => x.Name))
+        {
+            <ListItem Item="@item" OnRemoved="OnRemovedItem" OnChecked="OnCheckedItem" />
         }
     }
 </div>
@@ -27,32 +35,42 @@
 @code {
     bool IsAddingNewItem = false;
 
-    ShopList shoppingList;
-    string defaultShoppingListName = "defaultList";
+    List<ShoppingList> _shoppingLists = new();
+    List<ShoppingListItem> _shoppingListItems = new();
+    ShoppingList? _currentShoppingList;
+
+    private async Task RefreshItemsListAsync()
+    {
+        if (_currentShoppingList is null)
+        {
+            return;
+        }
+
+        ShoppingListItemsByShoppingListQuery listItemsQuery = new ShoppingListItemsByShoppingListQuery(_currentShoppingList.Id);
+        var shoppingListItemsResult = await sender.Send(listItemsQuery);
+
+        shoppingListItemsResult.Then(x => _shoppingListItems = x.ToList());
+
+        StateHasChanged();
+    }
 
     protected override async Task OnInitializedAsync()
     {
-        shoppingList = await shopingListRepository.GetAsync(defaultShoppingListName);
-        if (shoppingList == null)
+        AllShoppingListsQuery shoppingListsQuery = new AllShoppingListsQuery();
+
+        _shoppingLists = (await sender.Send(shoppingListsQuery)).ToList();
+
+        if (_shoppingLists.Count() < 1)
         {
-            var newShoppingList = new ShopList
-                {
-                    Name = defaultShoppingListName,
-                    Items = new List<ShopListItem>() { 
-                        new ShopListItem { Name = "Яйцо" },
-                        new ShopListItem { Name = "Пиво", IsBought = true }
-                    }
-                };
+            AddShoppingListCommand command = new AddShoppingListCommand("default");
+            await sender.Send(command);
 
-            await shopingListRepository.CreateAsync(newShoppingList);
-            shoppingList = newShoppingList;
+            _shoppingLists = (await sender.Send(shoppingListsQuery)).ToList();
         }
-    }
 
-    private async void Check(ShopListItem listItem)
-    {
-        listItem.IsBought = !listItem.IsBought;
-        await shopingListRepository.UpdateAsync(shoppingList);
+        _currentShoppingList = _shoppingLists[0];
+
+        await RefreshItemsListAsync();
     }
 
     private void AddNewItemBtnClick()
@@ -65,30 +83,23 @@
         IsAddingNewItem = false;
     }
 
-    private async Task AddNewItem(string newItemName)
+    private async Task AddNewItem(Guid shoppingListGuid, string newItemName)
     {
-        shoppingList.Items.Add(new ShopListItem()
-            {
-                Name = newItemName,
-                IsBought = false,
-                StatusChangedCount = 0
-            });
-
         HideAddNewItemBtn();
-        await shopingListRepository.UpdateAsync(shoppingList);
 
-        StateHasChanged();
+        AddShoppingListItemCommand addShoppingListItemCommand = new AddShoppingListItemCommand(shoppingListGuid, newItemName);
+        await sender.Send(addShoppingListItemCommand);
+
+        await RefreshItemsListAsync();
     }
 
-    private async Task RemoveItem(ShopListItem listItem)
+    private async Task OnRemovedItem()
     {
-        shoppingList.Items.Remove(listItem);
-        await shopingListRepository.UpdateAsync(shoppingList);
+        await RefreshItemsListAsync();
     }
 
-    private async Task OnUpdateItem(ShopListItem listItem, string newName)
+    private async Task OnCheckedItem()
     {
-        listItem.Name = newName;
-        await shopingListRepository.UpdateAsync(shoppingList);
+        await RefreshItemsListAsync();
     }
 }
