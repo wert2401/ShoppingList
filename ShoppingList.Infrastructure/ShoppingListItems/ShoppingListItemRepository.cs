@@ -12,10 +12,8 @@ namespace ShoppingList.Infrastructure.ShoppingListItems
         {
         }
 
-        public async Task<IEnumerable<ShoppingListItem>> GetByShoppingListGuid(Guid shoppingListGuid)
+        public IEnumerable<ShoppingListItem> GetByShoppingListGuid(Guid shoppingListGuid)
         {
-            await InitAsync();
-
             return AppDbContext.ShoppingListItems.Where(x => x.ShoppingListId == shoppingListGuid);
         }
     }

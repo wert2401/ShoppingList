@@ -16,6 +16,8 @@ builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.
 builder.Services.AddInfrastructure(builder.Configuration);
 builder.Services.AddApplication();
 
+builder.Logging.AddConfiguration(builder.Configuration.GetSection("Logging"));
+
 var app = builder.Build();
 
 using (var scope = app.Services.CreateAsyncScope())

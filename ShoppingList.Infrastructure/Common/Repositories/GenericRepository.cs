@@ -8,24 +8,15 @@ namespace ShoppingList.Infrastructure.Common.Repositories
         where TEntity : class
         where TKey : struct
     {
-        private readonly IDbContextFactory<AppDbContext> _appDbContextFactory;
-
-        protected AppDbContext AppDbContext { get; set; } = null!;
+        protected AppDbContext AppDbContext { get; set; }
 
         public GenericRepository(IDbContextFactory<AppDbContext> appDbContextFactory)
         {
-            _appDbContextFactory = appDbContextFactory;
-        }
-
-        protected async Task InitAsync()
-        {
-            AppDbContext = await _appDbContextFactory.CreateDbContextAsync();
+            AppDbContext = appDbContextFactory.CreateDbContext();
         }
 
         public virtual async Task<TEntity> AddAsync(TEntity entity)
         {
-            await InitAsync();
-
             await AppDbContext.AddAsync(entity);
 
             await AppDbContext.SaveChangesAsync();
@@ -33,18 +24,14 @@ namespace ShoppingList.Infrastructure.Common.Repositories
             return entity;
         }
 
-        public virtual async Task<IEnumerable<TEntity>> GetAllAsync()
+        public virtual IEnumerable<TEntity> GetAll()
         {
-            await InitAsync();
-
             return AppDbContext.Set<TEntity>()
                 .AsNoTracking();
         }
 
         public virtual async Task<TEntity?> GetByIdAsync(TKey id)
         {
-            await InitAsync();
-
             var entity = await AppDbContext.Set<TEntity>().FindAsync(id);
 
             return entity;
@@ -52,8 +39,6 @@ namespace ShoppingList.Infrastructure.Common.Repositories
 
         public virtual async Task RemoveAsync(TKey id)
         {
-            await InitAsync();
-
             var entity = await AppDbContext.Set<TEntity>().FindAsync(id);
 
             if (entity is null)
@@ -68,8 +53,6 @@ namespace ShoppingList.Infrastructure.Common.Repositories
 
         public virtual async Task<TEntity> UpdateAsync(TEntity entity)
         {
-            await InitAsync();
-
             AppDbContext.Set<TEntity>().Update(entity);
 
             await AppDbContext.SaveChangesAsync();

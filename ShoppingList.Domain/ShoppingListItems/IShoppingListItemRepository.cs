@@ -5,6 +5,6 @@ namespace ShoppingList.Domain.ShopListItems
 {
     public interface IShoppingListItemRepository : IGenericRepository<ShoppingListItem, Guid>
     {
-        Task<IEnumerable<ShoppingListItem>> GetByShoppingListGuid(Guid shoppingListGuid);
+        IEnumerable<ShoppingListItem> GetByShoppingListGuid(Guid shoppingListGuid);
     }
 }
