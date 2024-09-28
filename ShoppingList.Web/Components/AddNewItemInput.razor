@@ -13,5 +13,5 @@
     public EventCallback Decline { get; set; }
 
     [Parameter]
-    public Func<string, Task> Accept { get; set; }
+    public required Func<string, Task> Accept { get; set; }
 }
