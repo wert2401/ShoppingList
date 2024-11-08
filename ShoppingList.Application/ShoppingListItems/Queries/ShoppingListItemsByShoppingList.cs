@@ -31,7 +31,7 @@ namespace ShoppingList.Application.ShoppingListItems.Queries
                 return ShoppingListErrors.NotFound;
             }
 
-            return _shoppingListItemRepository.GetByShoppingListGuid(request.ShoppingListGuid).ToErrorOr();
+            return (await _shoppingListItemRepository.GetByShoppingListGuidAsync(request.ShoppingListGuid)).ToErrorOr();
         }
     }
 }

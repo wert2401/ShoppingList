@@ -20,8 +20,8 @@ namespace ShoppingList.Infrastructure
 
         private static void AddRepositories(this IServiceCollection serviceCollection)
         {
-            serviceCollection.AddScoped<IShoppingListRepository, ShoppingListRepository>();
-            serviceCollection.AddScoped<IShoppingListItemRepository, ShoppingListItemRepository>();
+            serviceCollection.AddTransient<IShoppingListRepository, ShoppingListRepository>();
+            serviceCollection.AddTransient<IShoppingListItemRepository, ShoppingListItemRepository>();
         }
     }
 }

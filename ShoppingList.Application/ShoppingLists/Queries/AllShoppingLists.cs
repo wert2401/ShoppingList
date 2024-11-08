@@ -14,9 +14,9 @@ namespace ShoppingList.Application.ShoppingLists.Queries
             _shoppingListRepository = shoppingListRepository;
         }
 
-        public Task<IEnumerable<Domain.ShoppingLists.ShoppingList>> Handle(AllShoppingListsQuery request, CancellationToken cancellationToken)
+        public async Task<IEnumerable<Domain.ShoppingLists.ShoppingList>> Handle(AllShoppingListsQuery request, CancellationToken cancellationToken)
         {
-            return Task.FromResult(_shoppingListRepository.GetAll());
+            return await _shoppingListRepository.GetAllAsync();
         }
     }
 }

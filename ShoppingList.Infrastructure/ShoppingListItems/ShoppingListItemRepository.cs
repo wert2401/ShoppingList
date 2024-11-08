@@ -6,15 +6,18 @@ using ShoppingList.Infrastructure.Persistence;
 
 namespace ShoppingList.Infrastructure.ShoppingListItems
 {
-    internal class ShoppingListItemRepository : GenericRepository<ShoppingListItem, Guid>, IShoppingListItemRepository
+    internal class ShoppingListItemRepository : GenericWebAssemblyRepository<ShoppingListItem, Guid>, IShoppingListItemRepository
     {
         public ShoppingListItemRepository(IDbContextFactory<AppDbContext> appDbContextFactory) : base(appDbContextFactory)
         {
         }
 
-        public IEnumerable<ShoppingListItem> GetByShoppingListGuid(Guid shoppingListGuid)
+        public async Task<IEnumerable<ShoppingListItem>> GetByShoppingListGuidAsync(Guid shoppingListGuid)
         {
-            return AppDbContext.ShoppingListItems.Where(x => x.ShoppingListId == shoppingListGuid);
+            using var appDbContext = await GetAppDbContextAsync();
+
+            return await appDbContext.ShoppingListItems.Where(x => x.ShoppingListId == shoppingListGuid)
+                .ToListAsync();
         }
     }
 }
