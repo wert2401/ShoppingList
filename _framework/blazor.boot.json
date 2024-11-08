@@ -1,7 +1,7 @@
 {
   "mainAssemblyName": "ShoppingList.Web",
   "resources": {
-    "hash": "sha256-IQfmbNzaF394uuOBB5S/vsZyfY8AkFI6bSCgcqpwCZs=",
+    "hash": "sha256-PqFWVOSJrfyItIwhsK1duzp1ttoogb+P1UR10kDseEM=",
     "jsModuleNative": {
       "dotnet.native.8.0.10.ng5s7by1f2.js": "sha256-SPSNS30xQK8OEpanzh3wkqS65Yje7IDfp0+tVqb4fWc="
     },
@@ -34,7 +34,7 @@
       "Microsoft.Extensions.Configuration.Abstractions.wasm": "sha256-RsZlFgGh1ww4fl270Hfb6f763N9UMZWB++sq//v4tpo=",
       "Microsoft.Extensions.Configuration.Json.wasm": "sha256-Qj+ocr7sNImYYg7dfeZDt9jXzynW9zOVEdmW2XolQ+U=",
       "Microsoft.Extensions.Configuration.wasm": "sha256-oSPjix3XiqvydYdIjj9NoLj6exkAmfLXXQtZU0qHesM=",
-      "Microsoft.Extensions.DependencyInjection.Abstractions.wasm": "sha256-c9bTMh/GEW/SHwIR4Hf1kemCsIZStkA7NElYSiCiBKE=",
+      "Microsoft.Extensions.DependencyInjection.Abstractions.wasm": "sha256-ImYoL/NdLyjUON5GrSczal9rZEKolidIr+lA39+eQX0=",
       "Microsoft.Extensions.DependencyInjection.wasm": "sha256-oqnpOSUSGA8hB8rsLGNM6rjUt4q8QUQh1jl8lUyijMs=",
       "Microsoft.Extensions.DependencyModel.wasm": "sha256-D/Q7tSHAvIl7H4PbaMMCN1s9pvlig4BdGiE2ETHfjUs=",
       "Microsoft.Extensions.Logging.Abstractions.wasm": "sha256-0q19XgTK8puicSA8uqAIS98zY0GSS1tnLK2d6subi/E=",
@@ -46,10 +46,10 @@
       "Microsoft.JSInterop.wasm": "sha256-MoFkFdF7xEFna+Yy7T3i2MmSnM2141P7ac2XHx6oulo=",
       "Microsoft.JSInterop.WebAssembly.wasm": "sha256-PkmdHg/xWfpt4+ZMmJzT4FOLHce7IuNRBtbJQeQAkHs=",
       "netstandard.wasm": "sha256-MsExJxL4DEHUfSTqyF9fgHva79ZqH2Un6Ma/jg7sTeo=",
-      "ShoppingList.Application.wasm": "sha256-MGqcFfsJmG+x5wYhFGaZDAO08QuE5aMOYvPpBVomREI=",
-      "ShoppingList.Domain.wasm": "sha256-KLz4LCPAKkj6asaqLF1U0E6gDD1qVUYQJX9AWDhVeU4=",
-      "ShoppingList.Infrastructure.wasm": "sha256-xuFS3yVFeCujHl2niTSdkKh1S4AvTwe0f8yeln6VDHY=",
-      "ShoppingList.Web.wasm": "sha256-4R2ovuI8Vwj0nzeA5LfIZjAc2sGpqygZpqetNys2n7U=",
+      "ShoppingList.Application.wasm": "sha256-Xk4nc7SKZP+ymuDOCDtX3BE+Jsq6XetNnOJZahv56bM=",
+      "ShoppingList.Domain.wasm": "sha256-nPbE2mUzTlNmZ3gnMtFqrIoUJtaWcAjMgsJDmpXF4iw=",
+      "ShoppingList.Infrastructure.wasm": "sha256-NZ9NB26I1KIye4oHxxsTMAzp+UrxxVPyGPQJTKoDq+Q=",
+      "ShoppingList.Web.wasm": "sha256-SjQadKMA9K+8QOf7NijEqwhmR9e89FdUwCq++z3p5jk=",
       "SQLitePCLRaw.batteries_v2.wasm": "sha256-AymqXfJmredfnqn6PxQs3nqqNoMXiBDEqaT3b0605F8=",
       "SQLitePCLRaw.core.wasm": "sha256-5ncp/PNVntosOHmUwpvRVJZvvreYP08nlkqD9XgBkdA=",
       "SQLitePCLRaw.provider.e_sqlite3.wasm": "sha256-3TKRNpWG681LxI/l31HI8LuIjsCjG6XJ9dIEXu3m1zY=",
