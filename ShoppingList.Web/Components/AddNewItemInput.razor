@@ -1,7 +1,7 @@
 ﻿<div>
     <img src="icons/checkboxEmpty.svg" alt="Unchecked" />
-    <input type="text" @bind="@Input"/>
-    <button @onclick="() => Accept(Input)"><img class="accept" src="icons/accept.svg" alt="Accept" /></button>
+    <input type="text" @bind="@Input" @bind:event="oninput" @bind:after="() => OnInputChanged?.Invoke(Input)" />
+    <button @onclick="() => OnAccepted(Input)"><img class="accept" src="icons/accept.svg" alt="Accept" /></button>
     <button @onclick="Decline"><img class="decline" src="icons/decline.svg" alt="Decline" /></button>
 </div>
 
@@ -13,5 +13,8 @@
     public EventCallback Decline { get; set; }
 
     [Parameter]
-    public required Func<string, Task> Accept { get; set; }
+    public required Func<string, Task> OnAccepted { get; set; }
+
+    [Parameter]
+    public Action<string>? OnInputChanged { get; set; }
 }

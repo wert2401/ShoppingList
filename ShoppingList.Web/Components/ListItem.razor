@@ -6,7 +6,7 @@
 
 @if (isEditMode)
 {
-    <AddNewItemInput Input="@Item.Name" Decline="OnDecline" Accept="OnAccept" />
+    <AddNewItemInput Input="@Item.Name" Decline="OnDecline" OnAccepted="OnAccept" />
 }
 else
 {
