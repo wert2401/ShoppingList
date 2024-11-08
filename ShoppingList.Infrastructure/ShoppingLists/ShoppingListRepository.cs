@@ -5,7 +5,7 @@ using ShoppingList.Infrastructure.Persistence;
 
 namespace ShoppingList.Infrastructure.ShoppingLists
 {
-    internal class ShoppingListRepository : GenericRepository<Domain.ShoppingLists.ShoppingList, Guid>, IShoppingListRepository
+    internal class ShoppingListRepository : GenericWebAssemblyRepository<Domain.ShoppingLists.ShoppingList, Guid>, IShoppingListRepository
     {
         public ShoppingListRepository(IDbContextFactory<AppDbContext> appDbContextFactory) : base(appDbContextFactory)
         {

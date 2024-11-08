@@ -4,7 +4,7 @@
         where TEntity : class 
         where TKey : struct
     {
-        IEnumerable<TEntity> GetAll();
+        Task<IEnumerable<TEntity>> GetAllAsync();
         Task<TEntity?> GetByIdAsync(TKey id);
         Task<TEntity> AddAsync(TEntity entity);
         Task RemoveAsync(TKey id);
