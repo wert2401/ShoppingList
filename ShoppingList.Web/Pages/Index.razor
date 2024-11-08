@@ -13,7 +13,7 @@
     <AddNewItemBtn OnClickCallback="AddNewItemBtnClick" />
     @if (_currentShoppingList != null)
     {
-        <Status CheckedCount="@_shoppingListItems.Where(x => x.IsBought).Count()" Count="@_shoppingListItems.Count()" />
+        <Status CheckedCount="@GetBoughtItemsCount()" Count="@GetShoppingListItemsCount()" />
     }
 </div>
 
@@ -22,10 +22,10 @@
     {
         @if (IsAddingNewItem)
         {
-            <AddNewItemInput Decline="HideAddNewItemBtn" Accept="async (input) => await AddNewItem(_currentShoppingList.Id, input)" />
+            <AddNewItemInput Decline="HideAddNewItemBtn" OnInputChanged="OnNewItemInput" OnAccepted="OnNewItemAccepted" />
         }
 
-        @foreach (var item in _shoppingListItems.OrderBy(x => x.IsBought).ThenBy(x => x.Name))
+        @foreach (var item in GetOrderedAndFilteredhoppingListItems())
         {
             <ListItem Item="@item" OnRemoved="OnRemovedItem" OnChecked="OnCheckedItem" />
         }
@@ -38,6 +38,7 @@
     List<ShoppingList> _shoppingLists = new();
     List<ShoppingListItem> _shoppingListItems = new();
     ShoppingList? _currentShoppingList;
+    string _filterString = string.Empty;
 
     private async Task RefreshItemsListAsync()
     {
@@ -73,6 +74,23 @@
         await RefreshItemsListAsync();
     }
 
+    private int GetBoughtItemsCount()
+    {
+        return _shoppingListItems.Where(x => x.IsBought).Count();
+    }
+
+    private int GetShoppingListItemsCount()
+    {
+        return _shoppingListItems.Count;
+    }
+
+    private IEnumerable<ShoppingListItem> GetOrderedAndFilteredhoppingListItems()
+    {
+        return _shoppingListItems.OrderBy(x => x.IsBought)
+            .ThenBy(x => x.Name)
+            .Where(x => x.Name.Contains(_filterString, StringComparison.InvariantCultureIgnoreCase));
+    }
+
     private void AddNewItemBtnClick()
     {
         IsAddingNewItem = !IsAddingNewItem;
@@ -81,6 +99,23 @@
     private void HideAddNewItemBtn()
     {
         IsAddingNewItem = false;
+    }
+
+    private void OnNewItemInput(string newInput)
+    {
+        _filterString = newInput;
+        StateHasChanged();
+    }
+
+    private async Task OnNewItemAccepted(string newitemName)
+    {
+        if (_currentShoppingList is null)
+        {
+            return;
+        }
+
+        await AddNewItem(_currentShoppingList.Id, newitemName);
+        _filterString = string.Empty;
     }
 
     private async Task AddNewItem(Guid shoppingListGuid, string newItemName)
