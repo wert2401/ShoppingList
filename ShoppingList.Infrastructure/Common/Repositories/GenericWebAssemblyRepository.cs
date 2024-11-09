@@ -4,25 +4,19 @@ using ShoppingList.Infrastructure.Persistence;
 
 namespace ShoppingList.Infrastructure.Common.Repositories
 {
-    internal class GenericWebAssemblyRepository<TEntity, TKey> : IGenericRepository<TEntity, TKey>
+    internal class GenericWebAssemblyRepository<TEntity, TKey>(IDbContextFactory<AppDbContext> appDbContextFactory)
+        : IGenericRepository<TEntity, TKey>
         where TEntity : class
         where TKey : struct
     {
-        private readonly IDbContextFactory<AppDbContext> _appDbContextFactory;
-
         protected async Task<AppDbContext> GetAppDbContextAsync()
         {
-            return await _appDbContextFactory.CreateDbContextAsync();
-        }
-
-        public GenericWebAssemblyRepository(IDbContextFactory<AppDbContext> appDbContextFactory)
-        {
-            _appDbContextFactory = appDbContextFactory;
+            return await appDbContextFactory.CreateDbContextAsync();
         }
 
         public virtual async Task<TEntity> AddAsync(TEntity entity)
         {
-            using var appDbContext = await GetAppDbContextAsync();
+            await using var appDbContext = await GetAppDbContextAsync();
 
             await appDbContext.AddAsync(entity);
 
@@ -33,7 +27,7 @@ namespace ShoppingList.Infrastructure.Common.Repositories
 
         public virtual async Task<IEnumerable<TEntity>> GetAllAsync()
         {
-            using var appDbContext = await GetAppDbContextAsync();
+            await using var appDbContext = await GetAppDbContextAsync();
 
             return await appDbContext.Set<TEntity>()
                 .AsNoTracking()
@@ -42,7 +36,7 @@ namespace ShoppingList.Infrastructure.Common.Repositories
 
         public virtual async Task<TEntity?> GetByIdAsync(TKey id)
         {
-            using var appDbContext = await GetAppDbContextAsync();
+            await using var appDbContext = await GetAppDbContextAsync();
 
             var entity = await appDbContext.Set<TEntity>().FindAsync(id);
 
@@ -51,7 +45,7 @@ namespace ShoppingList.Infrastructure.Common.Repositories
 
         public virtual async Task RemoveAsync(TKey id)
         {
-            using var appDbContext = await GetAppDbContextAsync();
+            await using var appDbContext = await GetAppDbContextAsync();
 
             var entity = await appDbContext.Set<TEntity>().FindAsync(id);
 
@@ -67,7 +61,7 @@ namespace ShoppingList.Infrastructure.Common.Repositories
 
         public virtual async Task<TEntity> UpdateAsync(TEntity entity)
         {
-            using var appDbContext = await GetAppDbContextAsync();
+            await using var appDbContext = await GetAppDbContextAsync();
 
             appDbContext.Set<TEntity>().Update(entity);
 
